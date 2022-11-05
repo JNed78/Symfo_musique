@@ -40,20 +40,35 @@ class AlbumRepository extends ServiceEntityRepository
         }
     }
 
-    /**
+   /**
     * @return Album[] Returns an array of Album objects
     */
     public function listeAlbumsComplete(): ?Query
-    {
-        return $this->createQueryBuilder('a')
-           ->select('a','s','art','m')
-           ->innerJoin('a.styles','s')
-           ->innerJoin('a.artiste','art')
-           ->innerJoin('a.morceaux','m')
-           ->orderBy('a.id', 'ASC')
-           ->getQuery()
-           ;
+   {
+       return $this->createQueryBuilder('a')
+            ->select('a','s','art','m')
+            ->innerjoin('a.styles','s')
+            ->innerjoin('a.artiste','art')
+            ->innerjoin('a.morceaux','m')
+            ->orderBy('a.id', 'ASC')
+            ->getQuery()
+       ;
    }
+ 
+       /**
+     * @return Query[] Returns an array of Style objects
+     */
+     public function listeAlbumsCompletePaginee():Query
+     {
+         return $this->createQueryBuilder('alb')
+             ->select('alb','art','stl','mrc')
+             ->leftJoin('alb.artiste','art')
+             ->leftJoin('alb.styles','stl')
+             ->leftJoin('alb.morceaux','mrc')
+             ->orderBy('alb.id', 'DESC')
+             ->getQuery()
+         ;
+     }
 
 //    public function findOneBySomeField($value): ?Album
 //    {
