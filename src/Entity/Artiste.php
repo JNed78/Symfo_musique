@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass=ArtisteRepository::class)
  * @UniqueEntity(
  *     fields={"nom"},
- *     message="Le nom de l'artiste est déjà utilisé dans la base"
+ *     message="Le nom choisi est déja utilisé."
  * )
  */
 class Artiste
@@ -33,12 +33,13 @@ class Artiste
 
     /**
      * @ORM\Column(type="text")
-     *  @Assert\Length(
-     *      min = 10,
-     *      max = 50,
-     *      minMessage = "La description doit comporter au minimum {{ limit }}  caractères",
-     *      maxMessage = "La description doit comporter au maximum {{ limit }}  characters"
-     * )
+     * @Assert\NotBlank(message="La description est obligatoire")
+     * @Assert\Length(
+     *      min = 7,
+     *      max = 255,
+     *      minMessage = "La description doit faire au minimum {{ limit }} caractères",
+     *      maxMessage = "La description doit faire au maximum {{ limit }} caractères"
+     * * )
      */
     private $description;
 
